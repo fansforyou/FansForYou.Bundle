@@ -1,5 +1,6 @@
 import re
 import datetime
+#import urllib2
 
 media_name_regex = r"(Only[F|f]ans[ ]?)\-? (.+)?\-? ([0-9]{4})[ ]?\-?([0-9]{2})[ ]?\-?([0-9]{2})[ ]?\-? ([0-9]+)[ ]?\-? (.+)"
 result_id_regex = r"(onlyfans::)(.+)::([0-9]+)"
@@ -20,6 +21,7 @@ class FansForYouAgent(Agent.Movies):
   def search(self, results, media, lang):
     regex_match = re.search(media_name_regex, media.name)
     if not regex_match:
+      results.Append(MetadataSearchResult(id="onlyfans::no_match", name="no match -> " + media.name, year=int(year), lang='en', score=100))
       return
 
     artist = regex_match.group(2)
@@ -27,8 +29,7 @@ class FansForYouAgent(Agent.Movies):
     scene_id = regex_match.group(6)
     scene_title = regex_match.group(7)
 
-    searchResult = MetadataSearchResult(id="onlyfans::" + artist + "::" + scene_id, name=scene_title, year=int(year), lang='en', score=100)
-    results.Append(searchResult)
+    results.Append(MetadataSearchResult(id="onlyfans::" + artist + "::" + scene_id, name=scene_title, year=int(year), lang='en', score=100))
 
   def update(self, metadata, media, lang):
     regex_match = re.search(result_id_regex, metadata.id)
@@ -43,15 +44,13 @@ class FansForYouAgent(Agent.Movies):
     metadata.roles.clear()
     role = metadata.roles.new()
     role.name = artist
-    role.photo = "https://ei.phncdn.com/videos/202006/12/323077461/original/(m=q4G2NUVbeaAaGwObaaaa)(mh=RU_hAfm4aELT9_eo)0.jpg"
+
+    #artist_image_search = HTML.ElementFromURL("https://www.google.com/search?q=" + artist + "+onlyfans.com").('//div[contains(@class, "isv-r")]')
+    # if len(artist_image_search) > 0:
+    #   role.photo = artist_image_search[0].xpath('//img[contains(@class, "rg_i")]')[0].attrib["src"]
 
     metadata.content_rating = "XXX"
     metadata.title = scene_title
     #metadata.originally_available_at = Datetime.ParseDate(str(year) + "-" + str(month) + "-" + str(day)).date()
     #metadata.year = metadata.originally_available_at.year
     #metadata.summary = 'this is a test of the summary stuff'
-
-    # Collections
-    metadata.collections.clear()
-    metadata.collections.add(artist)
-    metadata.collections.add("OnlyFans")
