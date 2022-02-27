@@ -1,6 +1,5 @@
 import re
 import datetime
-#import urllib2
 
 media_name_regex = r"(Only[F|f]ans[ ]?)\-? (.+)?\-? ([0-9]{4})[ ]?\-?([0-9]{2})[ ]?\-?([0-9]{2})[ ]?\-? ([0-9]+)[ ]?\-? (.+)"
 result_id_regex = r"(onlyfans::)(.+)::([0-9]+)"
@@ -50,7 +49,10 @@ class FansForYouAgent(Agent.Movies):
     #   role.photo = artist_image_search[0].xpath('//img[contains(@class, "rg_i")]')[0].attrib["src"]
 
     metadata.content_rating = "XXX"
-    metadata.title = scene_title
+    
+    metadata.collections.clear()
+    metadata.collections.add(artist)
+    metadata.collections.add("OnlyFans")
     #metadata.originally_available_at = Datetime.ParseDate(str(year) + "-" + str(month) + "-" + str(day)).date()
     #metadata.year = metadata.originally_available_at.year
     #metadata.summary = 'this is a test of the summary stuff'
