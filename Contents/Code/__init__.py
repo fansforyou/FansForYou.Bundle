@@ -2,7 +2,7 @@ import re
 import datetime
 import json
 
-media_name_regex = r"(Only[F|f]ans[ ]?)\-? (.+) \- ([0-9]{4})[ ]?\-?([0-9]{2})[ ]?\-?([0-9]{2})[ ]?\-? ([0-9]+)[ ]?\-? (.+)"
+media_name_regex = r"(Only[F|f]ans[ ]?)\-? (.+)( \-)? ([0-9]{4})[ ]?\-?([0-9]{2})[ ]?\-?([0-9]{2})[ ]?\-? ([0-9]+)[ ]?\-? (.+)"
 result_id_regex = r"onlyfans::actor::(.+)::scene_id::([0-9]+)"
 
 actor_portrait_urls = json.loads(Prefs["actor_portrait_urls"])
@@ -24,20 +24,20 @@ class FansForYouAgent(Agent.Movies):
   def search(self, results, media, lang):
     regex_match = re.search(media_name_regex, media.name)
     if not regex_match:
-      results.Append(MetadataSearchResult(id="onlyfans::no_match", name="no match -> " + media.name, lang='en', score=100))
+      Log("Media name did not match the media name regex: " + media.name)
       return
 
     artist = regex_match.group(2)
-    year = regex_match.group(3)
-    scene_id = regex_match.group(6)
-    scene_title = regex_match.group(7)
+    year = regex_match.group(4)
+    scene_id = regex_match.group(7)
+    scene_title = regex_match.group(8)
 
     results.Append(MetadataSearchResult(id="onlyfans::actor::" + artist + "::scene_id::" + scene_id, name=scene_title, year=int(year), lang='en', score=100))
 
   def update(self, metadata, media, lang):
     regex_match = re.search(result_id_regex, metadata.id)
     if not regex_match:
-      metadata.title = "no match -> " + metadata.id
+      Log("Metadata ID did not match the result ID regex: " + metadata.id)
       return
 
     artist = regex_match.group(1)
