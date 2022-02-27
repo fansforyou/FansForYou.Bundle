@@ -44,15 +44,12 @@ class FansForYouAgent(Agent.Movies):
     role = metadata.roles.new()
     role.name = artist
 
-    #artist_image_search = HTML.ElementFromURL("https://www.google.com/search?q=" + artist + "+onlyfans.com").('//div[contains(@class, "isv-r")]')
-    # if len(artist_image_search) > 0:
-    #   role.photo = artist_image_search[0].xpath('//img[contains(@class, "rg_i")]')[0].attrib["src"]
-
     metadata.content_rating = "XXX"
+    metadata.originally_available_at = datetime.datetime(int(year), int(month), int(day))
+    metadata.year = metadata.originally_available_at.year
     
     metadata.collections.clear()
     metadata.collections.add(artist)
     metadata.collections.add("OnlyFans")
-    #metadata.originally_available_at = Datetime.ParseDate(str(year) + "-" + str(month) + "-" + str(day)).date()
-    #metadata.year = metadata.originally_available_at.year
+
     #metadata.summary = 'this is a test of the summary stuff'
