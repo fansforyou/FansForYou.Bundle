@@ -14,6 +14,14 @@ def Start():
 def ValidatePrefs():
   pass
 
+def FixTitle(title):
+  fixed_title = title
+  # Because camel casing is somehow applied as a transformation of the text, try to account for that in common initialisms
+  fixed_title = re.sub("^Pov ", "POV ", fixed_title)
+  fixed_title = re.sub(" Pov$", " POV", fixed_title)
+  fixed_title = re.sub(" Pov ", " POV ", fixed_title)
+  return fixed_title
+
 
 class FansForYouAgent(Agent.Movies):
   name = 'FansForYou'
@@ -32,7 +40,7 @@ class FansForYouAgent(Agent.Movies):
     month = regex_match.group(5)
     day = regex_match.group(6)
     scene_id = regex_match.group(7)
-    scene_title = regex_match.group(8)
+    scene_title = FixTitle(regex_match.group(8))
 
     results.Append(MetadataSearchResult(id="onlyfans::actor::" + artist + "::scene_id::" + scene_id + "::post_year::" + year + "::post_month::" + month + "::post_day::" + day, name=scene_title, year=int(year), lang='en', score=100))
 
