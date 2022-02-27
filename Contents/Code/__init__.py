@@ -24,7 +24,7 @@ class FansForYouAgent(Agent.Movies):
   def search(self, results, media, lang):
     regex_match = re.search(media_name_regex, media.name)
     if not regex_match:
-      results.Append(MetadataSearchResult(id="onlyfans::no_match", name="no match -> " + media.name, year=int(year), lang='en', score=100))
+      results.Append(MetadataSearchResult(id="onlyfans::no_match", name="no match -> " + media.name, lang='en', score=100))
       return
 
     artist = regex_match.group(2)
