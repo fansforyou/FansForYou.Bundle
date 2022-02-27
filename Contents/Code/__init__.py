@@ -2,8 +2,8 @@ import re
 import datetime
 import json
 
-media_name_regex = r"(Only[F|f]ans[ ]?)\-? (.+)?\-? ([0-9]{4})[ ]?\-?([0-9]{2})[ ]?\-?([0-9]{2})[ ]?\-? ([0-9]+)[ ]?\-? (.+)"
-result_id_regex = r"(onlyfans::)(.+)::([0-9]+)"
+media_name_regex = r"(Only[F|f]ans[ ]?)\-? (.+) \- ([0-9]{4})[ ]?\-?([0-9]{2})[ ]?\-?([0-9]{2})[ ]?\-? ([0-9]+)[ ]?\-? (.+)"
+result_id_regex = r"onlyfans::actor::(.+)::scene_id::([0-9]+)"
 
 actor_portrait_urls = json.loads(Prefs["actor_portrait_urls"])
 default_actor_portrait_url = Prefs["default_actor_portrait_url"]
@@ -32,7 +32,7 @@ class FansForYouAgent(Agent.Movies):
     scene_id = regex_match.group(6)
     scene_title = regex_match.group(7)
 
-    results.Append(MetadataSearchResult(id="onlyfans::" + artist + "::" + scene_id, name=scene_title, year=int(year), lang='en', score=100))
+    results.Append(MetadataSearchResult(id="onlyfans::actor::" + artist + "::scene_id::" + scene_id, name=scene_title, year=int(year), lang='en', score=100))
 
   def update(self, metadata, media, lang):
     regex_match = re.search(result_id_regex, metadata.id)
@@ -40,8 +40,8 @@ class FansForYouAgent(Agent.Movies):
       metadata.title = "no match -> " + metadata.id
       return
 
-    artist = regex_match.group(2)
-    scene_id = regex_match.group(3)
+    artist = regex_match.group(1)
+    scene_id = regex_match.group(2)
 
     # Actors
     metadata.roles.clear()
