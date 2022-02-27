@@ -1,8 +1,12 @@
 import re
 import datetime
+import json
 
 media_name_regex = r"(Only[F|f]ans[ ]?)\-? (.+)?\-? ([0-9]{4})[ ]?\-?([0-9]{2})[ ]?\-?([0-9]{2})[ ]?\-? ([0-9]+)[ ]?\-? (.+)"
 result_id_regex = r"(onlyfans::)(.+)::([0-9]+)"
+
+actor_portrait_urls = json.loads(Prefs["actor_portrait_urls"])
+default_actor_portrait_url = Prefs["default_actor_portrait_url"]
 
 def Start():
   pass
@@ -43,6 +47,10 @@ class FansForYouAgent(Agent.Movies):
     metadata.roles.clear()
     role = metadata.roles.new()
     role.name = artist
+    if artist in actor_portrait_urls.keys():
+      role.photo = actor_portrait_urls[artist]
+    else:
+      role.photo = default_actor_portrait_url
 
     metadata.content_rating = "XXX"
     metadata.originally_available_at = datetime.datetime(int(year), int(month), int(day))
@@ -51,5 +59,3 @@ class FansForYouAgent(Agent.Movies):
     metadata.collections.clear()
     metadata.collections.add(artist)
     metadata.collections.add("OnlyFans")
-
-    #metadata.summary = 'this is a test of the summary stuff'
