@@ -2,7 +2,7 @@ import re
 import datetime
 import json
 
-media_name_regex = r"(Only[F|f]ans[ ]?)\-? (.+)( \-)? ([0-9]{4})[ ]?\-?([0-9]{2})[ ]?\-?([0-9]{2})[ ]?\-? ([0-9]+)[ ]?\-? (.+)"
+media_name_regex = r"(Only[F|f]ans[ ]?)\-? ([a-zA-Z0-9]+)( \-)? ([0-9]{4})[ ]?\-?([0-9]{2})[ ]?\-?([0-9]{2})[ ]?\-? ([0-9]+)[ ]?\-? (.+)"
 result_id_regex = r"onlyfans::actor::(.+)::scene_id::([0-9]+)::post_year::([0-9]+)::post_month::([0-9]+)::post_day::([0-9]+)"
 
 actor_portrait_urls = json.loads(Prefs["actor_portrait_urls"])
