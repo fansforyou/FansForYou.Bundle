@@ -1,14 +1,2 @@
 [
-  {
-    "id":"actor_portrait_urls",
-    "label":"A JSON object keying OnlyFans actor names to the URLs of the portrait to be used for them",
-    "type":"text",
-    "default":"{}"
-  },
-  {
-    "id":"default_actor_portrait_url",
-    "label":"The URL to be used for the actor portrait in lieu of a defined portrait",
-    "type":"text",
-    "default":"https://pbs.twimg.com/profile_images/1473290471648731146/EWPMeJq__400x400.jpg"
-  },
 ]

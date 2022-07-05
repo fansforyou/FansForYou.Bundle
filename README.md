@@ -16,14 +16,14 @@ As an example:
 OnlyFans - Petittits - 2022-02-10 - 268440502 - Dirty Talk and POV.mp4
 ```
 
-## Actor Portrait URLs
+## Installation
 
-Since this agent does not communicate with OnlyFans itself, this metadata agent exposes a way to provide a JSON object that keys OnlyFans account IDs to a portrait URL you have provided for that actor.
+Download the FansForYou.Bundle.zip of your preferred release and place the contents of that ZIP file within a `Plug-ins\FansForYou.bundle` directory (such that, for example, the `Contents` folder is directly beneath that folder) within your Plex Media Service user data (e.g., within `%LOCALAPPDATA%\Plex Media Server\` on Windows).
 
-Using the example above, if you want a specific portrait URL to be used for the Petittits actor portrait, you can specify that in the actor portrait URLs like so:
+## Troubleshooting
 
-```
-{"Petittits":"https://i.ytimg.com/vi/iik25wqIuFo/maxresdefault.jpg"}
-```
+If you need help troubleshooting issues with this agent, refer to here.
 
-This _is_ case-sensitive, so make sure your OnlyFans account IDs are consistent!
+### Logs
+
+The CLI utility used by this agent - `fan-gopher` - writes logs to the `fan-gopher.log` file located in `Plug-in Support\Data\com.plexapp.agents.fansforyou` within your Plex Media Server user data (e.g., within `%LOCALAPPDATA%\Plex Media Server\` on Windows).
