@@ -26,12 +26,12 @@ def ExecFanGopher(args):
     platform_system = platform.system()
     fan_gopher_executable = ""
     if platform_system == "Windows":
-      fan_gopher_executable = "winx64-1.0.1.exe"
+      fan_gopher_executable = "winx64-1.0.2.exe"
     elif platform_system == "Darwin":
-      fan_gopher_executable = "macx64-1.0.1"
+      fan_gopher_executable = "macx64-1.0.2"
     else:
       # Assume Linux for all other scenarios
-      fan_gopher_executable = "linuxx64-1.0.1"
+      fan_gopher_executable = "linuxx64-1.0.2"
 
     # Working directory is presumed to be:
     # Plex Media Server\Plug-in Support\Data\com.plexapp.agents.fansforyou
